@@ -36,7 +36,7 @@ const App = (props) => {
       dispatch(fetchUserInfo());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [jwt]);
   return (
     <BrowserRouter>
       <Nav />

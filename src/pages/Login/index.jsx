@@ -41,7 +41,7 @@ const Login = (props) => {
     // dispatch(fetchLogin(data));
     register(data);
   };
-  // if (redirect || !currentUser.id) return <Redirect to="/" />;
+  if (redirect) return <Redirect to="/" />;
   return (
     <div>
       <form action="" onSubmit={handleLogin}>
