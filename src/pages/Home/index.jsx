@@ -1,9 +1,11 @@
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 
 const API_URL = "http://localhost:1337/posts";
-const Home = (props) => {
+const Home = () => {
+  const { id } = useParams();
   const jwt = Cookies.get("jwt");
   const currentUser = useSelector((state) => state);
   const [posts, setPosts] = useState([]);
@@ -40,8 +42,10 @@ const Home = (props) => {
       });
   };
 
-  const getPosts = () => {
-    fetch(API_URL, {
+  const getPosts = (id) => {
+    let url = `http://localhost:1337/posts`;
+    if (id) url += "?user.id=" + id;
+    fetch(url, {
       method: "get",
       headers: {
         "Content-Type": "application/json",
@@ -56,9 +60,9 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    getPosts();
+    getPosts(id);
     fetchCountPost();
-  }, []);
+  }, [id]);
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -79,7 +83,16 @@ const Home = (props) => {
       <p>There is {count} posts</p>
       <div>
         {posts.map((post) => {
-          return <h1>{post.text}</h1>;
+          return (
+            <article>
+              <h4>
+                {post.text}
+                <Link to={`/profile/${post.user.id}`}>
+                  {post.user.username}
+                </Link>
+              </h4>
+            </article>
+          );
         })}
       </div>
       <h2>Add </h2>

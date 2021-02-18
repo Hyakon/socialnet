@@ -38,6 +38,7 @@ const Profile = ({ match }) => {
         <li>Updated: {userProfileData.updated_at}</li>
       </ul>
       <Link to="profile/edit">edit</Link>
+      <Link to={`/${userProfileData.id}`}>User Posts</Link>
       <Route path="/profile/edit">
         <ProfileEdit user={userProfileData}></ProfileEdit>
       </Route>

@@ -41,11 +41,12 @@ const App = (props) => {
     <BrowserRouter>
       <Nav />
       <Switch>
-        <Route exact path="/" component={Home} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/profile/:id" component={Profile} />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/:id" component={Home} />
       </Switch>
     </BrowserRouter>
   );
