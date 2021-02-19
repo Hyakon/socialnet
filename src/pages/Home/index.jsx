@@ -10,6 +10,7 @@ const Home = () => {
   const currentUser = useSelector((state) => state);
   const [posts, setPosts] = useState([]);
   const [count, setCount] = useState(0);
+
   const fetchNewPost = (data) => {
     fetch(API_URL, {
       method: "post",
@@ -55,13 +56,15 @@ const Home = () => {
       .then((res) => res.json())
       .then((res) => {
         console.log("posts", res);
-        setPosts(res);
+        setPosts(res || []);
       });
   };
 
   useEffect(() => {
-    getPosts(id);
-    fetchCountPost();
+    if (jwt) {
+      getPosts(id);
+      fetchCountPost();
+    }
   }, [id]);
 
   const handleUpdate = (e) => {
@@ -82,7 +85,7 @@ const Home = () => {
       </p>
       <p>There is {count} posts</p>
       <div>
-        {posts.map((post) => {
+        {posts?.map((post) => {
           return (
             <article>
               <h4>
